@@ -1,0 +1,7 @@
+python3 main.py --card_attribute "DARK" --limit 20
+python3 main.py --card_attribute "DIVINE" --limit 20
+python3 main.py --card_attribute "WATER" --limit 20
+python3 main.py --card_attribute "WIND" --limit 20
+python3 main.py --card_attribute "FIRE" --limit 20
+python3 main.py --card_attribute "LIGHT" --limit 20
+python3 main.py --card_attribute "EARTH" --limit 20
