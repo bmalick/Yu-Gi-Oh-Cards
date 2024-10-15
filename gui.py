@@ -114,8 +114,8 @@ class Gui:
     
     def get_entries(self):
         entries = {
-            "card_name"      : self.name_entry.get(),
-            "card_type"      : self.type_entry.get(),
+            "card_name"      : self.name_entry.get().title(),
+            "card_type"      : self.type_entry.get().title(),
             "card_atk"       : self.atk_entry.get(),
             "card_def"       : self.def_entry.get(),
             "card_level"     : self.level_entry.get(),
@@ -155,7 +155,7 @@ class Gui:
         try:
             ygo_deck.fetch()
         except HTTPError:
-            messagebox.showinfo(title="Http error", message="This occurs because something is wrong with notion key or your database id. If you chande properties name in your notion database this won't work.")
+            messagebox.showinfo(title="Http error", message="This occurs because something is wrong: it may be your notion key or your database id are noit valid. If you chande properties name in your notion database this won't work. Plus if the card does not exists this message is displayed")
 
 
         

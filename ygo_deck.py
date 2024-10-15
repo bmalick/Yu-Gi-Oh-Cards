@@ -40,32 +40,15 @@ class YGODeck:
             card_type = card["type"]
             description = card["desc"]
             
-            try:
-                attack = card["atk"]
-                defense = card["def"]
-                level = card["level"]
-            except:
-                attack = defense = level = None
-                
-            try:
-                archetype = card["archetype"]
-            except:
-                archetype = "UNKOWN"
-            
-            try:
-                attribute = card["attribute"]
-            except:
-                attribute = "UNKOWN"
-                
-            try:
-                race = card["race"]
-            except:
-                race = "UNKOWN"
-                
+            attack = card.get("atk")
+            defense = card.get("def")
+            level = card.get("level")
+            archetype = card.get("archetype")
+            attribute = card.get("attribute")
+            race = card.get("race")
             try:
                 rarity = card["card_sets"][0]["set_rarity"]
-            except:
-                rarity = "UNKNOWN"
+            except: rarity = None
                 
             cardmarket_price = card["card_prices"][0]["cardmarket_price"]
             tcgplayer_price = card["card_prices"][0]["tcgplayer_price"]
@@ -74,12 +57,14 @@ class YGODeck:
             for i in range(len(card["card_images"])):
                 icon = card["card_images"][i]["image_url_small"]
                 cover = card["card_images"][i]["image_url"]
+                # card_url = card["ygoprodeck_url"]
                 
                 Card(
                     card_id=card_id,name=name, description=description, card_type=card_type,
                     archetype=archetype, cdm_price=cardmarket_price, tgc_price=tcgplayer_price,
                     ebay_price=ebay_price, amazon_price=amazon_price, attack=attack, defense=defense,
                     level=level, attribute=attribute, race=race, rarity=rarity, icon = icon, cover=cover,
+                    # url = card_url, filename = self.filename
                     filename = self.filename
                 )
                 
@@ -89,4 +74,5 @@ class YGODeck:
                     break
             if found_limit:
                 break
-                
+data = YGODeck(card_name="Sky Striker Ace - Kagari", filename="keys.txt").fetch()
+
