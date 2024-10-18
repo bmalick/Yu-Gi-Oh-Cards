@@ -74,5 +74,4 @@ class YGODeck:
                     break
             if found_limit:
                 break
-data = YGODeck(card_name="Sky Striker Ace - Kagari", filename="keys.txt").fetch()
 
