@@ -28,6 +28,8 @@ class Gui:
         api_key = simpledialog.askstring(title="API Key", prompt="Enter you Notion API Key")
         # while not link:
         link = simpledialog.askstring(title="Database link", prompt="Enter you Notion database link")
+        if api_key is None or link is None:
+            return
         with open(self.filename,"w") as file:
             file.write(api_key+"\n"+link)
 
@@ -152,10 +154,12 @@ class Gui:
         ygo_deck = YGODeck(
             **entries
         )
-        try:
-            ygo_deck.fetch()
-        except HTTPError:
+        answer = ygo_deck.fetch()
+        if answer is None: messagebox.showinfo(message="Fetching is successful")
+        elif isinstance(answer, str):
+            messagebox.showinfo(title="Filter error", message=answer)
+        else:
             messagebox.showinfo(title="Http error", message="This occurs because something is wrong: it may be your notion key or your database id are noit valid. If you chande properties name in your notion database this won't work. Plus if the card does not exists this message is displayed")
 
 
-        
+

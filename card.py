@@ -5,7 +5,7 @@ import requests
 class Card:
     notion_api = "https://api.notion.com/v1/"
     
-    def __init__(self, card_id, name, description, card_type, race, archetype, rarity, cdm_price, tgc_price, ebay_price, amazon_price, attack, defense, level, attribute, icon, cover, filename):
+    def __init__(self, card_id, name, description, card_type, race, archetype, rarity, cdm_price, tgc_price, ebay_price, amazon_price, attack, defense, level, attribute, icon, cover, token, db_id):
         self.card_id = card_id
         self.name = name
         self.description = description
@@ -24,23 +24,17 @@ class Card:
         self.icon = icon
         self.cover = cover
         self.star = "⭐"
-        self.filename = filename
+        self.token = token
+        self.db_id = db_id
         # self.url = url
         
         self.get_params()
         self.add_to_db()
     
     def get_params(self):
-        with open(self.filename,"r") as file:
-            content = file.read()
-
-        token, self.db_id = content.split("\n")[:2]
-        self.db_id = self.db_id.split("?")[0].split("/")[-1]
-            
-
 
         self.headers = {
-            "Authorization": "Bearer " + token,
+            "Authorization": "Bearer " + self.token,
             "accept": "application/json",
             "Notion-Version": "2022-06-28",
             "content-type": "application/json"
@@ -114,5 +108,6 @@ class Card:
             ]
         }
         
-        response = requests.post(self.notion_api+"pages/", headers=self.headers, json=payload)
-        response.raise_for_status()
+        return requests.post(self.notion_api+"pages/", headers=self.headers, json=payload)
+        # response = requests.post(self.notion_api+"pages/", headers=self.headers, json=payload)
+        # response.raise_for_status()
